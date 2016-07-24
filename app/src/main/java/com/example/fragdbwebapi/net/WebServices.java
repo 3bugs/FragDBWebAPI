@@ -24,7 +24,7 @@ public class WebServices {
 
     private static final String BASE_URL = "http://10.0.3.2/FragDBWebAPI/";
     private static final String GET_CONTACTS_URL = BASE_URL + "get_contacts.php";
-    private static final String IMAGES_URL = BASE_URL + "images/";
+    public static final String IMAGES_URL = BASE_URL + "images/";
 
     private static final OkHttpClient mClient = new OkHttpClient();
     private static ArrayList<Contact> mContactArrayList;
@@ -83,8 +83,6 @@ public class WebServices {
                 }
             }
         });
-
-
     }
 
 }

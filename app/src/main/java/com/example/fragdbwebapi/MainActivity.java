@@ -1,5 +1,6 @@
 package com.example.fragdbwebapi;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDatabase;
 
-    private ArrayList<Contact> mContactsList = new ArrayList<>();
+    public static ArrayList<Contact> mContactsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void bindDataToRecyclerView() {
         // สร้าง Adapter
-        ContactsListAdapter adapter = new ContactsListAdapter(this, mContactsList);
+        ContactsListAdapter adapter = new ContactsListAdapter(this, mContactsList, new ContactsListAdapter.OnContactItemClickListener() {
+            @Override
+            public void onContactItemClick(Contact contact, int position) {
+                Intent intent = new Intent(MainActivity.this, ContactDetailActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
+
         // อ้างอิงไปยัง RecyclerView ใน layout (ไฟล์ activity_main.xml)
         RecyclerView contactRecyclerView = (RecyclerView) findViewById(R.id.contacts_recycler_view);
 
